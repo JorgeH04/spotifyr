@@ -52,21 +52,14 @@
                                 <div class="main-menu  d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a class="active" href="index.html">home</a></li>
-                                            <li><a href="about.html">About</a></li>
-                                            <li><a href="track.html">tracks</a></li>
-                                            <li><a href="#">blog <i class="ti-angle-down"></i></a>
+                                            <li><a class="active" href="index.html">Home</a></li>
+                                            <li><a href="#">tracks <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
-                                                    <li><a href="blog.html">blog</a></li>
-                                                    <li><a href="single-blog.html">single-blog</a></li>
+                                                    <li><a href="elotroyo.html">El otro yo</a></li>
+                                                    <li><a href="metallica.html">Metallica</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                     <li><a href="elements.html">elements</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                          
                                         </ul>
                                     </nav>
                                 </div>
@@ -399,6 +392,24 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/mail-script.js"></script>
 
     <script src="js/main.js"></script>
+
+        <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const audios = document.querySelectorAll("audio");
+
+    audios.forEach((audio, index) => {
+        audio.addEventListener("ended", () => {
+            // Buscar el siguiente audio en la lista
+            const next = audios[index + 1];
+            if (next) {
+                next.play(); // Reproduce el siguiente automáticamente
+            } else {
+                console.log("Terminó la última canción 🎵");
+            }
+        });
+    });
+});
+</script>
     
 		<script>
                 $(function() {
