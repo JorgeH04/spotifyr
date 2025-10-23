@@ -55,9 +55,8 @@
                                             <li><a class="active" href="index.html">Home</a></li>
                                             <li><a href="#">tracks <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
-                                                    <li><a href="elotroyo.html">El otro yo</a></li>
-                                                    <li><a href="metallica.html">Metallica</a></li>
-                                                    <li><a href="popvarios.html">Mixed</a></li>
+                                                    <li><a href="nacional.html">Rock Nacional</a></li>
+                                                    <li><a href="internacional.html">Rock Internacional</a></li>
                         
                                                 </ul>
                                             </li>
@@ -98,6 +97,14 @@
         </div>
     </div>
     <!--/ bradcam_area  -->
+
+
+        <!-- 🔍 buscador -->
+    <div class="search_area text-center my-4">
+        <input type="text" id="searchInput" placeholder="Search by band..." style="padding:10px; width:300px; border-radius:5px;">
+        <button id="clearSearch" style="padding:10px 15px; border-radius:5px; margin-left:10px;">Clear</button>
+        <button id="playAll" style="padding:10px 15px; border-radius:5px; margin-left:10px; display:none;">Play All</button>
+    </div>
     <!-- music_area  -->
     <div class="music_area music_gallery inc_padding">
         <div class="container">
@@ -552,30 +559,63 @@
     <script src="js/main.js"></script>
 
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const audios = document.querySelectorAll("audio");
+    document.addEventListener("DOMContentLoaded", function() {
+        const audios = document.querySelectorAll(".music_field audio");
+        const musicRows = document.querySelectorAll(".music_field");
+        const searchInput = document.getElementById("searchInput");
+        const clearBtn = document.getElementById("clearSearch");
+        const playAllBtn = document.getElementById("playAll");
 
-    audios.forEach((audio, index) => {
-        audio.addEventListener("ended", () => {
-            // Buscar el siguiente audio en la lista
-            const next = audios[index + 1];
-            if (next) {
-                next.play(); // Reproduce el siguiente automáticamente
-            } else {
-                console.log("Terminó la última canción 🎵");
+        // 🔍 Filtro por banda
+        searchInput.addEventListener("input", function() {
+            const filter = searchInput.value.toLowerCase();
+            let found = false;
+
+            musicRows.forEach(row => {
+                const band = row.querySelector("p").textContent.toLowerCase();
+                if (band.includes(filter)) {
+                    row.closest(".row").style.display = "";
+                    found = true;
+                } else {
+                    row.closest(".row").style.display = "none";
+                }
+            });
+
+            playAllBtn.style.display = found && filter ? "inline-block" : "none";
+        });
+
+        // 🔁 Limpiar búsqueda
+        clearBtn.addEventListener("click", function() {
+            searchInput.value = "";
+            musicRows.forEach(row => row.closest(".row").style.display = "");
+            playAllBtn.style.display = "none";
+        });
+
+        // 🎧 Reproducir automáticamente solo canciones visibles
+        audios.forEach((audio, index) => {
+            audio.addEventListener("ended", () => {
+                let next = null;
+                for (let i = index + 1; i < audios.length; i++) {
+                    if (audios[i].closest(".row").style.display !== "none") {
+                        next = audios[i];
+                        break;
+                    }
+                }
+                if (next) next.play();
+                else console.log("Terminó la última canción visible 🎶");
+            });
+        });
+
+        // ▶️ Botón Play All
+        playAllBtn.addEventListener("click", function() {
+            const visibleAudios = Array.from(audios).filter(a => a.closest(".row").style.display !== "none");
+            if (visibleAudios.length > 0) {
+                visibleAudios[0].play();
             }
         });
     });
-});
-</script>
-    
-		<script>
-                $(function() {
-                    $('audio').audioPlayer({
+    </script>
 
-                    });
-                });
-            </script>
 </body>
 
 </html>
