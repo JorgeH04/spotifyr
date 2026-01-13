@@ -1,438 +1,399 @@
 <!doctype html>
-<html class="no-js" lang="zxx">
-
+<html lang="es">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Musico</title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- <link rel="manifest" href="site.webmanifest"> -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
-    <!-- Place favicon.ico in the root directory -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
-    <!-- CSS here -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/themify-icons.css">
-    <link rel="stylesheet" href="css/nice-select.css">
-    <link rel="stylesheet" href="css/audioplayer.css">
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/gijgo.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/slick.css">
-    <link rel="stylesheet" href="css/slicknav.css">
-    <link rel="stylesheet" href="css/style.css">
-    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #111;
+            color: #fff;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont;
+            padding-top: 80px;
+        }
+
+        /* ================= NAVBAR ================= */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #1c1c1c;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,.5);
+        }
+
+        .navbar-custom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo img {
+            height: 36px;
+        }
+
+        /* MENU */
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #cfcfcf;
+            font-size: 15px;
+            transition: color .3s;
+        }
+
+        .nav-menu a:hover {
+            color: #ff4a57;
+        }
+
+        /* DROPDOWN */
+        .submenu {
+            position: absolute;
+            top: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #222;
+            list-style: none;
+            min-width: 200px;
+            padding: 10px 0;
+            border-radius: 8px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,.7);
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .submenu li a:hover {
+            background: rgba(255, 74, 87, 0.1);
+        }
+
+        .nav-menu li:hover .submenu {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ================= SEARCH ================= */
+        .search-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .search-section input {
+            padding: 10px 15px;
+            width: 250px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+
+        .search-section button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: none;
+            margin-left: 5px;
+            cursor: pointer;
+            background: #333;
+            color: #fff;
+            transition: background .3s;
+        }
+
+        .search-section button:hover {
+            background: #444;
+        }
+
+        #playAll {
+            background: #ff4a57;
+        }
+
+        #playAll:hover {
+            background: #ff3545;
+        }
+
+        /* ================= MUSIC ================= */
+        .container {
+            max-width: 700px;
+        }
+
+        .music_field {
+            background: #1c1c1c;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: background .3s;
+        }
+
+        .music_field:hover {
+            background: #252525;
+        }
+
+        .music_field h5 {
+            margin-bottom: 5px;
+        }
+
+        .music_field p {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        audio {
+            width: 100%;
+        }
+
+        /* ================= FLOAT VOLUME ================= */
+        #volume-fab {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9999;
+        }
+
+        #volumeBtn {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: none;
+            background: #ff4a57;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,.5);
+            transition: transform .2s ease, background .2s ease;
+        }
+
+        #volumeBtn:hover {
+            transform: scale(1.1);
+            background: #ff2f3d;
+        }
+
+        #globalVolume {
+            display: none;
+            width: 120px;
+            transform: rotate(-90deg);
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .navbar-custom {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-menu {
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
 
-    <!-- header-start -->
-    <header>
-        <div class="header-area ">
-            <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid">
-                    <div class="header_bottom_border">
-                        <div class="row align-items-center">
-                            <div class="col-xl-3 col-lg-2">
-                                <div class="logo">
-                                    <a href="index.html">
-                                        <img src="img/logo.png" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-7">
-                                <div class="main-menu  d-none d-lg-block">
-                                    <nav>
-                                        <ul id="navigation">
-                                            <li><a class="active" href="index.html">Home</a></li>
-                                            <li><a href="#">tracks <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="nacional.html">Rock Nacional</a></li>
-                                                    <li><a href="internacional.html">Rock Internacional</a></li>
-                        
-                                                </ul>
-                                            </li>
-                                          
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                                <div class="social_icon text-right">
-                                    <ul>
-                                    
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+<!-- ============== NAVBAR ============== -->
+<header>
+    <div class="navbar-custom">
+        <div class="logo">
+            <img src="img/logo.png" alt="Musico">
         </div>
-    </header>
-    <!-- header-end -->
 
-    <!-- bradcam_area  -->
-    <div class="bradcam_area breadcam_bg_2">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="bradcam_text text-center">
-                        <h3>My Tracks</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li>
+                <a href="#">Tracks ▾</a>
+                <ul class="submenu">
+                    <li><a href="nacional.html">Rock Nacional</a></li>
+                    <li><a href="internacional.html">Rock Internacional</a></li>
+                    <li><a href="psicodelico.html">Rock Psicodélico</a></li>
+                    <li><a href="dance.html">Dance</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
-    <!--/ bradcam_area  -->
+</header>
 
+<!-- ============== SEARCH ============== -->
+<div class="search-section">
+    <input type="text" id="searchInput" placeholder="Search by band...">
+    <button id="clearSearch">Clear</button>
+    <button id="playAll" style="display:none;">▶ Play All</button>
+</div>
 
-        <!-- 🔍 buscador -->
-    <div class="search_area text-center my-4">
-        <input type="text" id="searchInput" placeholder="Search by band..." style="padding:10px; width:300px; border-radius:5px;">
-        <button id="clearSearch" style="padding:10px 15px; border-radius:5px; margin-left:10px;">Clear</button>
-        <button id="playAll" style="padding:10px 15px; border-radius:5px; margin-left:10px; display:none;">Play All</button>
-    </div>
-    <!-- music_area  -->
-    <div class="music_area music_gallery inc_padding">
-        <div class="container">
+<!-- ============== MUSIC LIST ============== -->
+<div class="container">
 
+<div class="music_field">
+    <h5>Pow R Toc</h5>
+    <p>Pink Floyd</p>
+    <audio preload="auto" controls>
+        <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274049/Pink_Floyd_-_Pow_R._Toc._H_Official_Audio_kf53r0.mp3">
+    </audio>
+</div>
 
+<div class="music_field">
+    <h5>2000 light years</h5>
+    <p>Rolling Stones</p>
+    <audio preload="auto" controls>
+        <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274060/The_Rolling_Stones_-_2000_Light_Years_From_Home_Official_Music_Video_w08tek.mp3">
+    </audio>
+</div>
 
-                                                                 <div class="row align-items-center justify-content-center mb-20">
-                <div class="col-xl-10">
-                    <div class="row align-items-center">
-                                <div class="col-xl-9 col-md-9">
-                                    <div class="music_field">
-                                            <div class="thumb">
-                                                    <img src="img/music_man/2.png" alt="">
-                                                </div>
-                                                <div class="audio_name">
-                                                    <div class="name">
-                                                        <h4>Take Up Thy Stethoscope</h4>
-                                                        <p>Pink floyd</p>
-                                                    </div>
-                                                        <audio preload="auto" controls>
-                                                                <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274044/Pink_Floyd_-_Take_Up_Thy_Stethoscope_And_Walk_Official_Audio_d7l9pt.mp3">
-                                                        </audio>
-                                                </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-3">
-                                </div>
-                </div>
-            </div>
-        </div>    
+<div class="music_field">
+    <h5>Tomorrow never knows</h5>
+    <p>The Beatles</p>
+    <audio preload="auto" controls>
+        <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274063/Tomorrow_Never_Knows_2022_Mix_trm2yq.mp3">
+    </audio>
+</div>
 
+<div class="music_field">
+    <h5>Your time is gonna come</h5>
+    <p>Led Zeppelin</p>
+    <audio preload="auto" controls>
+        <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274064/Your_Time_Is_Gonna_Come_Remaster_r1nqqv.mp3">
+    </audio>
+</div>
 
-                                                     <div class="row align-items-center justify-content-center mb-20">
-                <div class="col-xl-10">
-                    <div class="row align-items-center">
-                                <div class="col-xl-9 col-md-9">
-                                    <div class="music_field">
-                                            <div class="thumb">
-                                                    <img src="img/music_man/2.png" alt="">
-                                                </div>
-                                                <div class="audio_name">
-                                                    <div class="name">
-                                                        <h4>Pow R Toc</h4>
-                                                        <p>Pink floyd</p>
-                                                    </div>
-                                                        <audio preload="auto" controls>
-                                                                <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274049/Pink_Floyd_-_Pow_R._Toc._H_Official_Audio_kf53r0.mp3">
-                                                        </audio>
-                                                </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-3">
-                                </div>
-                </div>
-            </div>
-        </div>    
+<div class="music_field">
+    <h5>Astronomy domine</h5>
+    <p>Pink Floyd</p>
+    <audio preload="auto" controls>
+        <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274067/Pink_Floyd_-_Astronomy_Domine_Official_Audio_nhp0gp.mp3">
+    </audio>
+</div>
 
+<div class="music_field">
+    <h5>Interestellar overdrive</h5>
+    <p>Pink Floyd</p>
+    <audio preload="auto" controls>
+        <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274090/Pink_Floyd_-_Interstellar_Overdrive_Official_Audio_ybkmfs.mp3">
+    </audio>
+</div>
 
-        
-        <div class="row align-items-center justify-content-center mb-20">
-                <div class="col-xl-10">
-                    <div class="row align-items-center">
-                                <div class="col-xl-9 col-md-9">
-                                    <div class="music_field">
-                                            <div class="thumb">
-                                                    <img src="img/music_man/2.png" alt="">
-                                                </div>
-                                                <div class="audio_name">
-                                                    <div class="name">
-                                                        <h4>2000 light years</h4>
-                                                        <p>Rolling stones</p>
-                                                    </div>
-                                                        <audio preload="auto" controls>
-                                                                <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274060/The_Rolling_Stones_-_2000_Light_Years_From_Home_Official_Music_Video_w08tek.mp3">
-                                                        </audio>
-                                                </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-3">
-                                </div>
-                </div>
-            </div>
-        </div>    
+<div class="music_field">
+    <h5>Lucifer sam</h5>
+    <p>Pink Floyd</p>
+    <audio preload="auto" controls>
+        <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762275076/Pink_Floyd_-_Lucifer_Sam_Official_Audio_jkftfb.mp3">
+    </audio>
+</div>
 
 
 
-        <div class="row align-items-center justify-content-center mb-20">
-                <div class="col-xl-10">
-                    <div class="row align-items-center">
-                                <div class="col-xl-9 col-md-9">
-                                    <div class="music_field">
-                                            <div class="thumb">
-                                                    <img src="img/music_man/2.png" alt="">
-                                                </div>
-                                                <div class="audio_name">
-                                                    <div class="name">
-                                                        <h4>Tomorrow never knows</h4>
-                                                        <p>The beatles</p>
-                                                    </div>
-                                                        <audio preload="auto" controls>
-                                                                <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274063/Tomorrow_Never_Knows_2022_Mix_trm2yq.mp3">
-                                                        </audio>
-                                                </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-3">
-                                </div>
-                </div>
-            </div>
-        </div>    
+</div>
 
+<!-- ============== FLOAT VOLUME ============== -->
+<div id="volume-fab">
+    <button id="volumeBtn">🔊</button>
+    <input type="range" id="globalVolume" min="0" max="1" step="0.01" value="0.8">
+</div>
 
-                             <div class="row align-items-center justify-content-center mb-20">
-                <div class="col-xl-10">
-                    <div class="row align-items-center">
-                                <div class="col-xl-9 col-md-9">
-                                    <div class="music_field">
-                                            <div class="thumb">
-                                                    <img src="img/music_man/2.png" alt="">
-                                                </div>
-                                                <div class="audio_name">
-                                                    <div class="name">
-                                                        <h4>Your time is gonna come</h4>
-                                                        <p>Led zeppelin</p>
-                                                    </div>
-                                                        <audio preload="auto" controls>
-                                                                <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274064/Your_Time_Is_Gonna_Come_Remaster_r1nqqv.mp3">
-                                                        </audio>
-                                                </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-3">
-                                </div>
-                </div>
-            </div>
-        </div>    
+<!-- ============== JS ============== -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+    const audios = document.querySelectorAll("audio");
+    const volumeBtn = document.getElementById("volumeBtn");
+    const volumeControl = document.getElementById("globalVolume");
+    const searchInput = document.getElementById("searchInput");
+    const clearBtn = document.getElementById("clearSearch");
+    const playAllBtn = document.getElementById("playAll");
+    const musicFields = document.querySelectorAll(".music_field");
 
-                 <div class="row align-items-center justify-content-center mb-20">
-                <div class="col-xl-10">
-                    <div class="row align-items-center">
-                                <div class="col-xl-9 col-md-9">
-                                    <div class="music_field">
-                                            <div class="thumb">
-                                                    <img src="img/music_man/2.png" alt="">
-                                                </div>
-                                                <div class="audio_name">
-                                                    <div class="name">
-                                                        <h4>Astronomy domine</h4>
-                                                        <p>Pink floyd</p>
-                                                    </div>
-                                                        <audio preload="auto" controls>
-                                                                <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274067/Pink_Floyd_-_Astronomy_Domine_Official_Audio_nhp0gp.mp3">
-                                                        </audio>
-                                                </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-3">
-                                </div>
-                </div>
-            </div>
-        </div>    
+    /* 🔊 VOLUMEN GLOBAL */
+    const savedVolume = 0.8;
+    volumeControl.value = savedVolume;
+    audios.forEach(a => a.volume = savedVolume);
 
+    volumeBtn.addEventListener("click", () => {
+        volumeControl.style.display =
+            volumeControl.style.display === "block" ? "none" : "block";
+    });
 
+    volumeControl.addEventListener("input", function () {
+        audios.forEach(a => a.volume = this.value);
 
+        if (this.value == 0) volumeBtn.textContent = "🔇";
+        else if (this.value < 0.5) volumeBtn.textContent = "🔉";
+        else volumeBtn.textContent = "🔊";
+    });
 
-         <div class="row align-items-center justify-content-center mb-20">
-                <div class="col-xl-10">
-                    <div class="row align-items-center">
-                                <div class="col-xl-9 col-md-9">
-                                    <div class="music_field">
-                                            <div class="thumb">
-                                                    <img src="img/music_man/2.png" alt="">
-                                                </div>
-                                                <div class="audio_name">
-                                                    <div class="name">
-                                                        <h4>Interestellar overdrive</h4>
-                                                        <p>Pink floyd</p>
-                                                    </div>
-                                                        <audio preload="auto" controls>
-                                                                <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274090/Pink_Floyd_-_Interstellar_Overdrive_Official_Audio_ybkmfs.mp3">
-                                                        </audio>
-                                                </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-3">
-                                </div>
-                </div>
-            </div>
-        </div>
+    /* 🔍 FILTRO */
+    searchInput.addEventListener("input", function () {
+        const filter = this.value.toLowerCase();
+        let found = false;
 
+        musicFields.forEach(field => {
+            const band = field.querySelector("p").textContent.toLowerCase();
+            if (band.includes(filter)) {
+                field.style.display = "";
+                found = true;
+            } else {
+                field.style.display = "none";
+            }
+        });
 
-                                                 
+        playAllBtn.style.display = found && filter ? "inline-block" : "none";
+    });
 
+    clearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        musicFields.forEach(f => f.style.display = "");
+        playAllBtn.style.display = "none";
+    });
 
-
-            <div class="row align-items-center justify-content-center mb-20">
-                <div class="col-xl-10">
-                    <div class="row align-items-center">
-                                <div class="col-xl-9 col-md-9">
-                                    <div class="music_field">
-                                            <div class="thumb">
-                                                    <img src="img/music_man/2.png" alt="">
-                                                </div>
-                                                <div class="audio_name">
-                                                    <div class="name">
-                                                        <h4>Lucifer sam</h4>
-                                                        <p>Pynk floyd</p>
-                                                    </div>
-                                                        <audio preload="auto" controls>
-                                                                <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762275076/Pink_Floyd_-_Lucifer_Sam_Official_Audio_jkftfb.mp3">
-                                                            </audio>
-                                                </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-3">
-                                </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- music_area end  -->
-
-    
-
-    <!-- footer start -->
-    <footer class="footer">
-        <div class="footer_top">
-
-        </div>
-    </footer>
-    <!--/ footer end  -->
-
-    <!-- link that opens popup -->
-
-    <!-- JS here -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
-            crossorigin="anonymous">
-    </script>
-    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/isotope.pkgd.min.js"></script>
-    <script src="js/ajax-form.js"></script>
-    <script src="js/waypoints.min.js"></script>
-    <script src="js/jquery.counterup.min.js"></script>
-    <script src="js/imagesloaded.pkgd.min.js"></script>
-    <script src="js/audioplayer.js"></script>
-    <script src="js/scrollIt.js"></script>
-    <script src="js/jquery.scrollUp.min.js"></script>
-    <script src="js/wow.min.js"></script>
-    <script src="js/nice-select.min.js"></script>
-    <script src="js/jquery.slicknav.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/gijgo.min.js"></script>
-    <script src="js/slick.min.js"></script>
-    <!--contact js-->
-    <script src="js/contact.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="js/jquery.form.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/mail-script.js"></script>
-
-    <script src="js/main.js"></script>
-
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const audios = document.querySelectorAll(".music_field audio");
-        const musicRows = document.querySelectorAll(".music_field");
-        const searchInput = document.getElementById("searchInput");
-        const clearBtn = document.getElementById("clearSearch");
-        const playAllBtn = document.getElementById("playAll");
-
-        // 🔍 Filtro por banda
-        searchInput.addEventListener("input", function() {
-            const filter = searchInput.value.toLowerCase();
-            let found = false;
-
-            musicRows.forEach(row => {
-                const band = row.querySelector("p").textContent.toLowerCase();
-                if (band.includes(filter)) {
-                    row.closest(".row").style.display = "";
-                    found = true;
-                } else {
-                    row.closest(".row").style.display = "none";
+    /* ▶ AUTOPLAY */
+    audios.forEach((audio, index) => {
+        audio.addEventListener("ended", () => {
+            for (let i = index + 1; i < audios.length; i++) {
+                if (audios[i].closest(".music_field").style.display !== "none") {
+                    audios[i].play();
+                    break;
                 }
-            });
-
-            playAllBtn.style.display = found && filter ? "inline-block" : "none";
-        });
-
-        // 🔁 Limpiar búsqueda
-        clearBtn.addEventListener("click", function() {
-            searchInput.value = "";
-            musicRows.forEach(row => row.closest(".row").style.display = "");
-            playAllBtn.style.display = "none";
-        });
-
-        // 🎧 Reproducir automáticamente solo canciones visibles
-        audios.forEach((audio, index) => {
-            audio.addEventListener("ended", () => {
-                let next = null;
-                for (let i = index + 1; i < audios.length; i++) {
-                    if (audios[i].closest(".row").style.display !== "none") {
-                        next = audios[i];
-                        break;
-                    }
-                }
-                if (next) next.play();
-                else console.log("Terminó la última canción visible 🎶");
-            });
-        });
-
-        // ▶️ Botón Play All
-        playAllBtn.addEventListener("click", function() {
-            const visibleAudios = Array.from(audios).filter(a => a.closest(".row").style.display !== "none");
-            if (visibleAudios.length > 0) {
-                visibleAudios[0].play();
             }
         });
     });
-    </script>
+
+    playAllBtn.addEventListener("click", () => {
+        const visibles = [...audios].filter(a =>
+            a.closest(".music_field").style.display !== "none"
+        );
+        if (visibles.length) visibles[0].play();
+    });
+
+});
+</script>
 
 </body>
-
 </html>
