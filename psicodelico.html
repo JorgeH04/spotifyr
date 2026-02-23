@@ -38,7 +38,7 @@
             justify-content: space-between;
             padding: 18px 40px;
             max-width: 1400px;
-            margin: 0 auto;
+            margin: 0 none;
         }
 
         .logo img {
@@ -97,7 +97,7 @@
 
         .nav-menu li:hover .submenu {
             opacity: 1;
-            pointer-events: auto;
+            pointer-events: none;
             transform: translateX(-50%) translateY(0);
         }
 
@@ -256,7 +256,7 @@
 <div class="music_field">
     <h5>Pow R Toc</h5>
     <p>Pink Floyd</p>
-    <audio preload="auto" controls>
+    <audio preload="none" controls>
         <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274049/Pink_Floyd_-_Pow_R._Toc._H_Official_Audio_kf53r0.mp3">
     </audio>
 </div>
@@ -264,7 +264,7 @@
 <div class="music_field">
     <h5>2000 light years</h5>
     <p>Rolling Stones</p>
-    <audio preload="auto" controls>
+    <audio preload="none" controls>
         <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274060/The_Rolling_Stones_-_2000_Light_Years_From_Home_Official_Music_Video_w08tek.mp3">
     </audio>
 </div>
@@ -272,7 +272,7 @@
 <div class="music_field">
     <h5>Tomorrow never knows</h5>
     <p>The Beatles</p>
-    <audio preload="auto" controls>
+    <audio preload="none" controls>
         <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274063/Tomorrow_Never_Knows_2022_Mix_trm2yq.mp3">
     </audio>
 </div>
@@ -280,7 +280,7 @@
 <div class="music_field">
     <h5>Your time is gonna come</h5>
     <p>Led Zeppelin</p>
-    <audio preload="auto" controls>
+    <audio preload="none" controls>
         <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274064/Your_Time_Is_Gonna_Come_Remaster_r1nqqv.mp3">
     </audio>
 </div>
@@ -288,7 +288,7 @@
 <div class="music_field">
     <h5>Astronomy domine</h5>
     <p>Pink Floyd</p>
-    <audio preload="auto" controls>
+    <audio preload="none" controls>
         <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274067/Pink_Floyd_-_Astronomy_Domine_Official_Audio_nhp0gp.mp3">
     </audio>
 </div>
@@ -296,7 +296,7 @@
 <div class="music_field">
     <h5>Interestellar overdrive</h5>
     <p>Pink Floyd</p>
-    <audio preload="auto" controls>
+    <audio preload="none" controls>
         <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762274090/Pink_Floyd_-_Interstellar_Overdrive_Official_Audio_ybkmfs.mp3">
     </audio>
 </div>
@@ -304,7 +304,7 @@
 <div class="music_field">
     <h5>Lucifer sam</h5>
     <p>Pink Floyd</p>
-    <audio preload="auto" controls>
+    <audio preload="none" controls>
         <source src="https://res.cloudinary.com/dsk4fft6r/video/upload/v1762275076/Pink_Floyd_-_Lucifer_Sam_Official_Audio_jkftfb.mp3">
     </audio>
 </div>
@@ -373,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function () {
         playAllBtn.style.display = "none";
     });
 
-    /* ▶ AUTOPLAY */
+    /* ▶ nonePLAY */
     audios.forEach((audio, index) => {
         audio.addEventListener("ended", () => {
             for (let i = index + 1; i < audios.length; i++) {
